@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>登陆</title>
+    <link rel='stylesheet' href='https://cdn.bootcss.com/materialize/0.100.2/css/materialize.min.css'></link>
+</head>
+
+<body>
+    <div id="container" style="width:700px; margin: 40px auto;"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        $.get('/kryProxy?url=tradeManage/queryList', function(result){
+            $("#container").html($(result).find("#credential"));
+            $('#loginId').val('7364');
+            $('#username').val('dianzhang');;
+            $('#password').val('123456abc');
+        })
+    });
+
+    function login(){
+        var $loginId = $('#loginId').val('7364');
+        var $username = $('#username').val('dianzhang');;
+        var $password = $('#password').val('123456abc');
+        var $errorInfo = $('#errorInfo');
+        var $form = $("#loginForm");
+        var $checkCode = $('#captcha');
+        //            var $checkCode = $('#checkCode');
+
+        var loginId = $loginId.val();
+        var username = $username.val();
+        var password = $password.val();
+        var checkCode = $checkCode.val();
+        var isRemember = $('#isRemember').is(":checked") ? 1 : 0;
+
+        if (!$.trim(loginId)) {
+            $('#errorInfo').html('请输入商户编号').show();
+            $loginId.focus();
+            return;
+        }
+        if (!$.trim(username)) {
+            $('#errorInfo').html('请输入用户名').show();
+            $username.focus();
+            return;
+        }
+        if (!password) {
+            $('#errorInfo').html('请输入密码').show();
+            $password.focus();
+            return;
+        }
+        if (!checkCode) {
+            $('#errorInfo').html('请输入验证码').show();
+            $checkCode.focus();
+            return;
+        }
+        $errorInfo.html('正在登录，请稍候...').show();
+
+        $form.submit();
+
+    }
+</script>
+</html>
